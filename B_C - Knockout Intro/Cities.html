@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Cities of the World</title>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/Scripts/knockout-3.0.0.js"></script>
+    <script src="Scripts/Cities.js"></script>
+</head>
+<body>
+    <div class="content">
+        <h1>Cities</h1>
+        <div data-bind="visible: loading">Loading, please wait...</div>
+        <div data-bind="foreach: allCities">
+            <div data-bind="text: Name"></div>
+        </div>
+    </div>
+    <script>
+        ko.applyBindings(new Cities());
+    </script>
+</body>
+</html>
