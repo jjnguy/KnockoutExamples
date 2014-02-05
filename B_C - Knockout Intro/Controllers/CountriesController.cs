@@ -13,11 +13,11 @@ namespace B_C___Knockout_Intro.Controllers
     public class CountriesController : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<City> Get()
+        public IEnumerable<Country> Get()
         {
             return ConnectionHelper.WithNewConnection(con =>
             {
-                var countries = con.Query<City>("SELECT * FROM Country");
+                var countries = con.Query<Country>("SELECT * FROM Country");
                 return countries;
             });
         }

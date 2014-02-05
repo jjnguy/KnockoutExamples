@@ -9,7 +9,16 @@
 <body>
     <div class="content">
         <h1>Cities</h1>
-        <div data-bind="visible: loading">Loading, please wait...</div>
+        <div>
+            <h3>add new city</h3>
+            <form data-bind="submit: newCity" method="POST">
+                <label>Country<select data-bind="options: allCountries, optionsText: 'Name', value: selectedCountry"></select></label>
+                <label>Name<input data-bind="value: newCityName" /></label>
+                <button type="submit">create</button>
+            </form>
+            <hr />
+        </div>
+        <div data-bind="visible: loadingCities">Loading, please wait...</div>
         <div data-bind="foreach: allCities">
             <div data-bind="text: Name"></div>
         </div>

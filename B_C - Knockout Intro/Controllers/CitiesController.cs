@@ -34,7 +34,7 @@ namespace B_C___Knockout_Intro.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]City value)
+        public void Post(City value)
         {
             ConnectionHelper.WithNewConnection((con) =>
             {
@@ -42,7 +42,7 @@ namespace B_C___Knockout_Intro.Controllers
                     new
                     {
                         value.CountryCode,
-                        value.District,
+                        District = "",
                         value.Name,
                         value.Population,
                     });
@@ -59,6 +59,14 @@ namespace B_C___Knockout_Intro.Controllers
         public void Delete(int id)
         {
             if (id <= 4079) throw new Exception("Cannot delete cities that came with the database");
+            ConnectionHelper.WithNewConnection((con) =>
+            {
+                con.Execute("DELETE FROM City WHERE Id = @id",
+                    new
+                    {
+                        id
+                    });
+            });
         }
     }
 }
