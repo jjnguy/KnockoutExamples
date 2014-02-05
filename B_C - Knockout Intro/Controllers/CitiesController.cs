@@ -16,7 +16,7 @@ namespace B_C___Knockout_Intro.Controllers
         // GET api/<controller>
         public IEnumerable<City> Get()
         {
-            return WithNewConnection(con =>
+            return ConnectionHelper.WithNewConnection(con =>
             {
                 var cities = con.Query<City>("SELECT * FROM City");
                 return cities;
@@ -26,7 +26,7 @@ namespace B_C___Knockout_Intro.Controllers
         // GET api/<controller>/5
         public City Get(int id)
         {
-            return WithNewConnection(con =>
+            return ConnectionHelper.WithNewConnection(con =>
             {
                 var city = con.Query<City>("SELECT * FROM City WHERE ID = @id", new { id }).FirstOrDefault();
                 return city;
@@ -34,32 +34,31 @@ namespace B_C___Knockout_Intro.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post([FromBody]City value)
         {
+            ConnectionHelper.WithNewConnection((con) =>
+            {
+                con.Execute("INSERT INTO City (CountryCode, District, Name, Population) VALUES (@CountryCode, @District, @Name, @Population)",
+                    new
+                    {
+                        value.CountryCode,
+                        value.District,
+                        value.Name,
+                        value.Population,
+                    });
+            });
         }
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]string value)
         {
+            if (id <= 4079) throw new Exception("Cannot edit cities that came with the database");
         }
 
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
-        }
-
-        private static T WithNewConnection<T>(Func<DbConnection, T> Code)
-        {
-            string connStr = "server=localhost;user=jjnguy;database=world;port=3307;password=asdf1234;";
-            DbConnection con = new MySqlConnection(connStr);
-            con.ConnectionString = connStr;
-            con.Open();
-
-            var result = Code(con);
-
-            con.Close();
-
-            return result;
+            if (id <= 4079) throw new Exception("Cannot delete cities that came with the database");
         }
     }
 }

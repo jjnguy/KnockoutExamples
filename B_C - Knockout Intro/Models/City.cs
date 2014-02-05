@@ -12,5 +12,13 @@ namespace B_C___Knockout_Intro.Models
         public string CountryCode;
         public long Population;
         public string District;
+
+        public bool Editable
+        {
+            get
+            {
+                return Id > 4079;
+            }
+        }
     }
 }
