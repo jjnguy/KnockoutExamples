@@ -9,11 +9,10 @@ namespace B_C___Knockout_Intro
 {
     public static class ConnectionHelper
     {
+        const ConnectonString = "server=localhost;user=jjnguy;database=world;port=3307;password=asdf1234;";
         public static T WithNewConnection<T>(Func<DbConnection, T> Code)
         {
-            string connStr = "server=localhost;user=jjnguy;database=world;port=3307;password=asdf1234;";
-            DbConnection con = new MySqlConnection(connStr);
-            con.ConnectionString = connStr;
+            DbConnection con = new MySqlConnection(ConnectonString);
             con.Open();
 
             var result = Code(con);
@@ -24,9 +23,7 @@ namespace B_C___Knockout_Intro
         }
         public static void WithNewConnection(Action<DbConnection> Code)
         {
-            string connStr = "server=localhost;user=jjnguy;database=world;port=3307;password=asdf1234;";
-            DbConnection con = new MySqlConnection(connStr);
-            con.ConnectionString = connStr;
+            DbConnection con = new MySqlConnection(ConnectonString);
             con.Open();
 
             Code(con);

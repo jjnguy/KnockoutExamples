@@ -35,10 +35,6 @@ namespace B_C___Knockout_Intro.Controllers
         // POST api/<controller>
         public void Post([FromBody]string value)
         {
-            ConnectionHelper.WithNewConnection((con) =>
-            {
-
-            });
         }
 
         // PUT api/<controller>/5
